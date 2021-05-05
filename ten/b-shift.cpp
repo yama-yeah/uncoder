@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+//#include <atcoder/all>
+#define rep(i,n) for(long long int i=0;(i)<(long long int)(n);i++)
+#define Rep(i,a,b) for(long long int i=(long long int)(a);(i)<(long long int)(b);i++)
+#define REP(i,a,b,c) for(long long int i=(long long int)(a);(i)<(long long int)(b);i+=c)
+#define repm(i,n) for(long long int i=n;(i)>-1;i--)
+#define Repm(i,a,b) for(long long int i=a;(i)>b;i--)
+#define REPM(i,a,b,c) for(long long int i=(long long int)(a);(i)>(long long int)(b);i-=c)
+#define ALL(a) (a).begin(),(a).end()
+#define pb push_back
+#define fi first
+#define se second
+#define sz(x) ((int)x.size())
+#define uni(a) erase(unique((a).begin(),(a).end()),(a).end())
+typedef long long ll;
+typedef long double ld;
+using namespace std;
+int main()
+{
+    int n,cnt=0;
+    cin>>n;
+    vector<int> a(n),t(n);
+    rep(i,n){
+        cin>>a.at(i);
+    }
+    while(true){
+        rep(i,n){
+            if(a.at(i)%2==0){
+                t.at(i)=a.at(i)/2;
+            }
+            else{
+                goto jamp;
+            }
+        }
+        a=t;
+        cnt++;
+    }
+    jamp:
+    cout<<cnt<<endl;
+    return 0;
+}

@@ -66,19 +66,54 @@ template<class... T>constexpr auto max(T&... a){return max(initializer_list<comm
 template<class T,class T2>void npn(T &a,T2 &b){do {b.pb(a);} while(next_permutation(ALL(a)));}//make_permutations_list
 template<class T,class T2>void npk(T &a,T2 &b,int k){T2 c,d;nck(a,c,k);rep(typeof(c.at(0))& i:c){npn(i,d);rep(typeof(d.at(0))& j:d){b.pb(j);}}}
 template<class T,class T2>void nck(T a,T2& b,int k){vec(int,indices,k);int s_i=0;int s=0;while(s>=0){rep(i,s_i,sz(a)){indices[s++]=i;if(s==k){T comb;rep(x,k){comb.pb(a[indices[x]]);}b.pb(comb);break;}}--s;if(s<0)break;s_i=indices[s]+1;}}
+int counts(string &s,string t){int c=0,l=sz(s),tl=sz(t),r=0;rep(i,l){if(s[i]==t[c]){c++;}else{c=0;}if(c==tl){r++;c=0;}}return r;}
 #define Max(a,...) a=max(a,__VA_ARGS__)
 #define Min(a,...) a=max(a,__VA_ARGS__)
 #define Npn(a,name) vec(typeof(a),name); npn(a,name)
 #define Npk(a,name,k) vec(typeof(a),name); npk(a,name,k)
 #define Nck(a,name,k) vec(typeof(a),name); nck(a,name,k)
+vector<int> dx={0,0,1,-1},dy={1,-1,0,0};
 #define INF 1e9
 typedef long long ll;
 typedef long double ld;
-int counts(string &s,string t){int c=0,l=sz(s),tl=sz(t),r=0;rep(i,l){if(s[i]==t[c]){c++;}else{c=0;}if(c==tl){r++;c=0;}}return r;}
+void dfs(vec(string)& a,int x,int y)
+{
+    a.at(y).at(x)='x';
+    rep(i,4){
+        if(x+dx[i]>=0&&y+dy[i]>=0&&x+dx[i]<sz(a.at(0))&&y+dy[i]<sz(a)){
+            if(a[y+dy.at(i)][x+dx.at(i)]=='o'){
+                dfs(a,x+dx[i],y+dy[i]);
+            }
+        }
+    }
+}
 void solve()
 {
-    Input(int,a,b);
-    print(2*a+100-b);
+    Scanv(string,a,10);
+    vec(string,b);
+    string s;
+    rep(i,10){
+        s.pb('x');
+    }
+    rep(i,10){
+        rep(j,10){
+            if(a.at(i).at(j)=='x'){
+                b=a;
+                b[i][j]='o';
+                dfs(b,j,i);
+                rep(k,10){
+                    if(b.at(k)!=s){
+                        break;
+                    }
+                    elif(k==9){
+                        print("Yes");
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    print("No");
 }
 int main()
 {

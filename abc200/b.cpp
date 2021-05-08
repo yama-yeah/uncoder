@@ -72,48 +72,24 @@ int counts(string &s,string t){int c=0,l=sz(s),tl=sz(t),r=0;rep(i,l){if(s[i]==t[
 #define Npn(a,name) vec(typeof(a),name); npn(a,name)
 #define Npk(a,name,k) vec(typeof(a),name); npk(a,name,k)
 #define Nck(a,name,k) vec(typeof(a),name); nck(a,name,k)
-vector<int> dx={0,0,1,-1},dy={1,-1,0,0};
 #define INF 1e9
 typedef long long ll;
 typedef long double ld;
-void dfs(vec(string)& a,int x,int y)
-{
-    a.at(y).at(x)='x';
-    rep(i,4){
-        if(x+dx[i]>=0&&y+dy[i]>=0&&x+dx[i]<sz(a.at(0))&&y+dy[i]<sz(a)){
-            if(a[y+dy.at(i)][x+dx.at(i)]=='o'){
-                dfs(a,x+dx[i],y+dy[i]);
-            }
-        }
-    }
-}
 void solve()
 {
-    Scanv(string,a,10);
-    vec(string,b);
+    Input(ll,n,k);
     string s;
-    rep(i,10){
-        s.pb('x');
-    }
-    rep(i,10){
-        rep(j,10){
-            if(a.at(i).at(j)=='x'){
-                b=a;
-                b[i][j]='o';
-                dfs(b,j,i);
-                rep(k,10){
-                    if(b.at(k)!=s){
-                        break;
-                    }
-                    elif(k==9){
-                        print("YES");
-                        return;
-                    }
-                }
-            }
+    rep(i,k){
+        if(n%200==0){
+            n=n/200;
+        }
+        else{
+            s=to_string(n);
+            s+="200";
+            n=stoll(s);
         }
     }
-    print("NO");
+    print(n);
 }
 int main()
 {

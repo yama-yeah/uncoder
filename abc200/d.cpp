@@ -21,7 +21,7 @@ using namespace std;
 #define vvv3(type,name,h) vector<vector<vector<type>>>name(h)
 #define vvv2(type,name) vector<vector<vector<type>>>name
 #define vvv1(type,name) vector<vector<vector<type>>>
-#define vvv(...) overload6(__VA_ARGS__,vv5, vv5, vv4, vv3,vv2,vv1)(__VA_ARGS__)
+#define vvv(...) overload6(__VA_ARGS__,vvv5, vv5, vvv4, vvv3,vvv2,vvv1)(__VA_ARGS__)
 #define rep1(a)          for(a)
 #define rep2(i, a)       for(long long int i = 0; i < a; i++)
 #define rep3(i, a, b)    for(long long int i = a; i < b; i++)
@@ -56,7 +56,7 @@ using namespace std;
 #define scanvv(a) rep(i,sz(a))rep(j,sz((a).at(i))){cin>>a.at(i).at(j);}
 #define Scanv(type,a,...) vec(type,a,__VA_ARGS__);scanv(a)
 #define Scanvv(type,a,h,...) vv(type,a,h,__VA_ARGS__);scanvv(a)
-#define outv(a) rep(i,sz(a)){cout<<a.at(i)<<" ";}cout<<endl
+#define outv(a) rep(i,sz(a)){cout<<a.at(i)+1<<" ";}cout<<endl
 #define outvv(a) rep(i,sz(a)){rep(j,sz((a).at(i))){cout<<a.at(i).at(j)<<" ";}cout<<endl;}
 template<class... T>void input(T&... a){(cin >> ... >> a);}
 template<class T, class... Ts>void print(const T& a, const Ts&... b){cout << a;(cout << ... << (cout << ' ', b));cout << '\n';}
@@ -72,48 +72,51 @@ int counts(string &s,string t){int c=0,l=sz(s),tl=sz(t),r=0;rep(i,l){if(s[i]==t[
 #define Npn(a,name) vec(typeof(a),name); npn(a,name)
 #define Npk(a,name,k) vec(typeof(a),name); npk(a,name,k)
 #define Nck(a,name,k) vec(typeof(a),name); nck(a,name,k)
-vector<int> dx={0,0,1,-1},dy={1,-1,0,0};
 #define INF 1e9
 typedef long long ll;
 typedef long double ld;
-void dfs(vec(string)& a,int x,int y)
-{
-    a.at(y).at(x)='x';
-    rep(i,4){
-        if(x+dx[i]>=0&&y+dy[i]>=0&&x+dx[i]<sz(a.at(0))&&y+dy[i]<sz(a)){
-            if(a[y+dy.at(i)][x+dx.at(i)]=='o'){
-                dfs(a,x+dx[i],y+dy[i]);
-            }
-        }
-    }
-}
 void solve()
 {
-    Scanv(string,a,10);
-    vec(string,b);
-    string s;
-    rep(i,10){
-        s.pb('x');
+    Input(int,n);
+    vec(ll,a);
+    vec(int,b);
+    vv(int,c);
+    rep(i,n){
+        Input(int,x);
+        a.pb(x);
     }
-    rep(i,10){
-        rep(j,10){
-            if(a.at(i).at(j)=='x'){
-                b=a;
-                b[i][j]='o';
-                dfs(b,j,i);
-                rep(k,10){
-                    if(b.at(k)!=s){
-                        break;
-                    }
-                    elif(k==9){
-                        print("YES");
-                        return;
-                    }
-                }
+    rep(i,n){
+        b.pb(i);
+    }
+    rep(i,1,n){
+        Nck(b,d,i);
+        rep(vec(int) &j:d){
+            c.pb(j);
+        }
+    }
+    vec(int,d);
+    rep(i,sz(c)){
+        ll sum=0;
+        rep(j,sz(c[i])){
+            sum+=a[c[i][j]];
+        }
+        d.pb(sum%200);
+    }
+    rep(i,sz(d)-1){
+        rep(j,i+1,sz(d)){
+            if(d[i]==d[j]){
+                print("Yes");
+                int cnt=0;
+                cout<<sz(c[i])<<" ";
+                outv(c[i]);
+                cout<<sz(c[j])<<" ";
+                outv(c[j]);
+                return;
             }
         }
     }
-    print("NO");
+    print("No");
+    return;
 }
 int main()
 {

@@ -79,20 +79,25 @@ int counts(string &s,string t){int c=0,l=sz(s),tl=sz(t),r=0;rep(i,l){if(s[i]==t[
 typedef long long ll;
 //ll max value 	9223372036854775807
 typedef long double ld;
+void dfs(int v,vec(bool)& visited,vec(vec(int))& a){
+    visited[v]=true;
+    for(auto next:a[v]){
+        if(visited[next])continue;
+        dfs(next,visited,a);
+    }
+}
 void solve()
 {
-    int def='a'-'A';
-    Input(string,s);
-    int l=sz(s);
-    rep(i,l){
-        if(s[i]>='a'){
-            s[i]-=def;
-        }
+    Input(int,n);
+    Input(int,m);
+    Scanvv(int,a,m,2);
+    vec(bool,visited,n);
+    vec(bool,passed,m);
+    rep(i,n){
     }
-    print(s);
 }
 int main()
 {
-    solve();
+    //solve();
     return 0;
 }

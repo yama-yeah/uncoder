@@ -81,18 +81,14 @@ typedef long long ll;
 typedef long double ld;
 void solve()
 {
-    int def='a'-'A';
-    Input(string,s);
-    int l=sz(s);
-    rep(i,l){
-        if(s[i]>='a'){
-            s[i]-=def;
-        }
-    }
-    print(s);
+    Input(int,n);
+    vec(int,state,n);
+    Input(int,q);
+    Scanvv(int,a,q,2);
+
 }
 int main()
 {
-    solve();
+    //solve();
     return 0;
 }

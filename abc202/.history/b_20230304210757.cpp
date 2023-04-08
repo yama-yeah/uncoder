@@ -81,15 +81,26 @@ typedef long long ll;
 typedef long double ld;
 void solve()
 {
-    int def='a'-'A';
-    Input(string,s);
-    int l=sz(s);
-    rep(i,l){
-        if(s[i]>='a'){
-            s[i]-=def;
+    Input(int,n);
+    vec(int,state,n);
+    Input(int,q);
+    Scanvv(int,a,q,2);
+    rep(i,q){
+        if(a[i][0]==1){
+            state[a[i][1]-1]+=1;
+        }
+        elif(a[i][0]==2){
+            state[a[i][1]-1]+=2;
+        }
+        else{
+            if(state[a[i][1]-1]>1){
+                print("YES");
+            }
+            else{
+                print("NO");
+            }
         }
     }
-    print(s);
 }
 int main()
 {

@@ -89,10 +89,9 @@ void solve()
             s[i]-=def;
         }
     }
-    print(s);
 }
 int main()
 {
-    solve();
+    //solve();
     return 0;
 }

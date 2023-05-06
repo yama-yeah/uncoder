@@ -201,63 +201,46 @@ vector<long long> sieve(int MAXP)
 typedef long long ll;
 // ll max value 	9223372036854775807
 typedef long double ld;
-
-bool isOk(vec(int) A, int s, int K)
+vec(int) dfs(int cnt, vv(int) & G, int now, int par)
 {
-    int temp = 0;
-    int cnt = 0;
-    rep(i, A.size())
-    {
-        temp += A[i];
-        if (temp >= s)
-        {
-            temp = 0;
-            cnt++;
-        }
-    }
-    if (cnt > K)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
+    vec(int) r = {0, 0};
+    bool flag = true;
 
-int b_s(int L, int K, vec(int) A)
-{
-    int l = -1;
-    int r = L + 1;
-    int s = 0;
-    while (r - l >= 0)
+    vec(int) To = G[now];
+    rep(i, sz(To))
     {
-        int mid = (r + l) / 2;
-        if (isOk(A, mid, K))
+        if (To[i] == par)
+            continue;
+        flag = false;
+        vec(int) temp = dfs(cnt + 1, G, To[i], now);
+        if (temp[0] > r[0])
         {
-            l = mid + 1;
-            s = mid;
-        }
-        else
-        {
-            r = mid - 1;
+            r = temp;
         }
     }
-    return s;
+    if (flag)
+    {
+        return {cnt, now};
+    }
+    return r;
 }
 
 void solve()
 {
     Input(int, N);
-    Input(int, L);
-    Input(int, K);
-    Scanv(int, A, N);
-    A.pb(L);
-    repm(i, sz(A) - 1, 0)
+    vv(int, G, N);
+    rep(i, N - 1)
     {
-        A[i] = A[i] - A[i - 1];
+        Input(int, k1);
+        Input(int, k2);
+        k1--;
+        k2--;
+        G[k1].pb(k2);
+        G[k2].pb(k1);
     }
-    print(b_s(L, K, A));
+    int city = dfs(0, G, 0, -1)[1];
+    int ans = dfs(0, G, city, -1)[0] + 1;
+    print(ans);
 }
 int main()
 {

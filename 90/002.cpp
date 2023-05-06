@@ -201,63 +201,54 @@ vector<long long> sieve(int MAXP)
 typedef long long ll;
 // ll max value 	9223372036854775807
 typedef long double ld;
-
-bool isOk(vec(int) A, int s, int K)
-{
-    int temp = 0;
-    int cnt = 0;
-    rep(i, A.size())
-    {
-        temp += A[i];
-        if (temp >= s)
-        {
-            temp = 0;
-            cnt++;
-        }
-    }
-    if (cnt > K)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-int b_s(int L, int K, vec(int) A)
-{
-    int l = -1;
-    int r = L + 1;
-    int s = 0;
-    while (r - l >= 0)
-    {
-        int mid = (r + l) / 2;
-        if (isOk(A, mid, K))
-        {
-            l = mid + 1;
-            s = mid;
-        }
-        else
-        {
-            r = mid - 1;
-        }
-    }
-    return s;
-}
-
 void solve()
 {
     Input(int, N);
-    Input(int, L);
-    Input(int, K);
-    Scanv(int, A, N);
-    A.pb(L);
-    repm(i, sz(A) - 1, 0)
+    if (N % 2 != 0)
     {
-        A[i] = A[i] - A[i - 1];
+        print("");
     }
-    print(b_s(L, K, A));
+    else
+    {
+        vec(string, S);
+        rep(bit, (1 << N))
+        {
+            string s;
+            int cnt = 0;
+            rep(i, N)
+            {
+                if (bit & (1 << i))
+                {
+                    s.pb('(');
+                    cnt++;
+                }
+                else
+                {
+                    cnt--;
+                    s.pb(')');
+                }
+                if (cnt < 0)
+                {
+                    break;
+                }
+            }
+            if (cnt)
+            {
+                continue;
+            }
+            S.pb(s);
+        }
+        sort(S);
+        rep(i, sz(S))
+        {
+            rep(j, sz(S.at(i)))
+            {
+                char c = S.at(i).at(j);
+                cout << c;
+            }
+            cout << endl;
+        }
+    }
 }
 int main()
 {

@@ -201,66 +201,42 @@ vector<long long> sieve(int MAXP)
 typedef long long ll;
 // ll max value 	9223372036854775807
 typedef long double ld;
-
-bool isOk(vec(int) A, int s, int K)
-{
-    int temp = 0;
-    int cnt = 0;
-    rep(i, A.size())
-    {
-        temp += A[i];
-        if (temp >= s)
-        {
-            temp = 0;
-            cnt++;
-        }
-    }
-    if (cnt > K)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-int b_s(int L, int K, vec(int) A)
-{
-    int l = -1;
-    int r = L + 1;
-    int s = 0;
-    while (r - l >= 0)
-    {
-        int mid = (r + l) / 2;
-        if (isOk(A, mid, K))
-        {
-            l = mid + 1;
-            s = mid;
-        }
-        else
-        {
-            r = mid - 1;
-        }
-    }
-    return s;
-}
-
 void solve()
 {
-    Input(int, N);
-    Input(int, L);
-    Input(int, K);
-    Scanv(int, A, N);
-    A.pb(L);
-    repm(i, sz(A) - 1, 0)
+    Input(int, H);
+    Input(int, W);
+    Scanvv(int, A, H, W);
+    vv(int, ANS, H, W);
+    vec(int, SH);
+    rep(i, H)
     {
-        A[i] = A[i] - A[i - 1];
+        SH.pb(0);
     }
-    print(b_s(L, K, A));
+    vec(int, SW);
+    rep(i, W)
+    {
+        SW.pb(0);
+    }
+    rep(i, H)
+    {
+        rep(j, W)
+        {
+            SH[i] += A[i][j];
+            SW[j] += A[i][j];
+        }
+    }
+    rep(i, H)
+    {
+        rep(j, W)
+        {
+            ANS[i][j] = SH[i] + SW[j] - A[i][j];
+        }
+    }
+    outvv(ANS);
 }
 int main()
 {
+    std::cin.tie(0)->sync_with_stdio(0);
     solve();
     return 0;
 }
